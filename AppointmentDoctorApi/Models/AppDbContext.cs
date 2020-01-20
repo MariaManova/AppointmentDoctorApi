@@ -28,6 +28,7 @@ namespace AppointmentDoctorApi.Models
         public DbSet<Speciality> Speciality { get; set; }
         public DbSet<PlaceOfWork> PlaceOfWork { get; set; }
         public DbSet<WorkSchedule> WorkSchedule { get; set; }
+        public DbSet<Appreciated> Appreciated { get; set; }
         public DbSet<Appointment> Appointment { get; set; }
         public DbSet<Images> Images { get; set; }
     }
