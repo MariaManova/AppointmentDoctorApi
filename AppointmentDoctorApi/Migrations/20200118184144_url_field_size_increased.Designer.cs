@@ -4,14 +4,16 @@ using AppointmentDoctorApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AppointmentDoctorApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200118184144_url_field_size_increased")]
+    partial class url_field_size_increased
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,27 +46,6 @@ namespace AppointmentDoctorApi.Migrations
                     b.HasIndex("Fk_Patient");
 
                     b.ToTable("Appointment");
-                });
-
-            modelBuilder.Entity("AppointmentDoctorApi.Models.Appreciated", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Assessment");
-
-                    b.Property<long>("Fk_Doctor");
-
-                    b.Property<long>("Fk_User");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Fk_Doctor");
-
-                    b.HasIndex("Fk_User");
-
-                    b.ToTable("Appreciated");
                 });
 
             modelBuilder.Entity("AppointmentDoctorApi.Models.Doctor", b =>
@@ -227,19 +208,6 @@ namespace AppointmentDoctorApi.Migrations
                     b.HasOne("AppointmentDoctorApi.Models.Patient", "Patient")
                         .WithMany("MyAppointments")
                         .HasForeignKey("Fk_Patient")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("AppointmentDoctorApi.Models.Appreciated", b =>
-                {
-                    b.HasOne("AppointmentDoctorApi.Models.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("Fk_Doctor")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("AppointmentDoctorApi.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("Fk_User")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
