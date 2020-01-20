@@ -8,7 +8,7 @@ namespace AppointmentDoctorApi.Models
     {
         [Key]
         public long Id { get; set; }
-        [Column(TypeName = "varchar(200)")]
+        [Column(TypeName = "varchar(MAX)")]
         public string Url { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool Removed { get; set; }
