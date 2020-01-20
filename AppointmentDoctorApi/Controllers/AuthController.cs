@@ -41,7 +41,7 @@ namespace AppointmentDoctorApi.Controllers
             model.Role = (int)Role.user;
             try
             {
-                var user = userService.Create((User)model, model.Password);
+                var user = userService.Create((User)model, model.Address, model.Password);
                 return Ok(user);
             }
             catch (AppException e)
@@ -73,10 +73,12 @@ namespace AppointmentDoctorApi.Controllers
                 return BadRequest(new { message = "Email или пароль не валидны" });
 
             var tokenString = GetToken(user);
+            var patientAuth = userService.Get(user.Id);
 
             return Ok(new
             {
                 token = tokenString,
+                patient = patientAuth,
                 userLogin = user
             });
         }

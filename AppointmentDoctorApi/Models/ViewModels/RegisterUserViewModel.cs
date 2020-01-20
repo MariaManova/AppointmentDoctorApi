@@ -28,6 +28,8 @@ namespace AppointmentDoctorApi.Models.ViewModels
                 FullName = m.FullName,
                 Enum_Gender = m.Gender,
                 Enum_Role = m.Role,
+                CreatedAt = DateTime.Now,
+                EditedAt = DateTime.Now,
                 Removed = false,
             };
         }

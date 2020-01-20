@@ -31,7 +31,7 @@ namespace AppointmentDoctorApi.Models.Services
             return user;
         }
 
-        public User Create(User user, string password)
+        public User Create(User user, string address, string password)
         {
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Необходим пароль");
@@ -43,17 +43,22 @@ namespace AppointmentDoctorApi.Models.Services
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            user.CreatedAt = DateTime.Now;
-            user.EditedAt = DateTime.Now;
+            user.Fk_Photo = 2;
 
             context.Add(user);
             context.SaveChanges();
 
+            Patient patient = new Patient();
+            patient.Fk_User = user.Id;
+            patient.Address = address;
+            context.Add(patient);
+            context.SaveChanges();
+
             return user;
         }
-        public User Get(long Id)
+        public Patient Get(long Id)
         {
-            try { return context.User.Where(u => u.Id == Id).Single(); }
+            try { return context.Patient.Where(u => u.Fk_User == Id).Single(); }
             catch { return null; }
         }
         public User Get(Func<User, bool> predicate)
