@@ -4,14 +4,16 @@ using AppointmentDoctorApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AppointmentDoctorApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200121031937_added_fields_for_rating_calculation")]
+    partial class added_fields_for_rating_calculation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,8 +60,6 @@ namespace AppointmentDoctorApi.Migrations
 
                     b.Property<long>("Fk_User");
 
-                    b.Property<DateTime>("dateTime");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Fk_Doctor");
@@ -75,10 +75,6 @@ namespace AppointmentDoctorApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<DateTime>("EditedAt");
-
                     b.Property<int>("Enum_Category");
 
                     b.Property<long>("Fk_PlaceOfWork");
@@ -89,9 +85,7 @@ namespace AppointmentDoctorApi.Migrations
 
                     b.Property<int>("NumRated");
 
-                    b.Property<double>("Rating");
-
-                    b.Property<bool>("Removed");
+                    b.Property<int>("Rating");
 
                     b.Property<int>("TotalSumRating");
 
