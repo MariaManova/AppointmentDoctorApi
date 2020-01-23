@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AppointmentDoctorApi.Models;
+using AppointmentDoctorApi.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,10 +30,25 @@ namespace AppointmentDoctorApi.Controllers
         }
 
         // GET: api/Doctor/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [AllowAnonymous]
+        [HttpGet(Name = "Get")]
+        public IActionResult Get(long id_Doctor, long id_User)
         {
-            return "value";
+            if (id_User == 0 || id_Doctor == 0)
+            {
+                return BadRequest();
+            }
+            var app = db.Appreciated.FirstOrDefault(a => a.Fk_Doctor == id_Doctor && a.Fk_User == id_User);
+            var doc = db.Doctor.FirstOrDefault(d => d.Id == id_Doctor);
+            if (doc == null)
+            {
+                return BadRequest();
+            }
+            return Ok(new
+            {
+                appreciated = app,
+                doctor = doc
+            });
         }
 
         // POST: api/Doctor
@@ -42,9 +58,35 @@ namespace AppointmentDoctorApi.Controllers
         }
 
         // PUT: api/Doctor/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult Put(long id_Doctor, [FromBody] RatingViewModel model)
         {
+            if (model == null)
+            {
+                return BadRequest();
+            }
+            var doc = db.Doctor.FirstOrDefault(d => d.Id == id_Doctor);
+            if (doc == null)
+            {
+                return BadRequest();
+            }
+            doc.TotalSumRating = model.TotalSumRating;
+            doc.NumRated = model.NumRated;
+            doc.Rating = model.Rating;
+            db.Update(doc);
+            db.SaveChanges();
+            Appreciated ap = new Appreciated();
+            ap.Fk_Doctor = id_Doctor;
+            ap.Fk_User = model.Id_User;
+            ap.Assessment = model.Assessment;
+            ap.dateTime = DateTime.Now;
+            db.Add(ap);
+            db.SaveChanges();
+            return Ok(new
+            {
+                doctor = doc,
+                appreciated = ap
+            });
         }
 
         // DELETE: api/ApiWithActions/5
