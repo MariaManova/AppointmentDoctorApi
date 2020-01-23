@@ -29,11 +29,6 @@ namespace AppointmentDoctorApi.Controllers
             this.userService = userService;
             this.config = config;
         }
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
         [AllowAnonymous]
         [HttpPost("signup")]
         public IActionResult Create([FromBody] RegisterUserViewModel model)
