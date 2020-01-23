@@ -18,9 +18,14 @@ namespace AppointmentDoctorApi.Models
         public long Fk_PlaceOfWork { get; set; }
         [Display(Name = "Категория")]
         public int Enum_Category { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
         [Display(Name = "Данные пользователя"), ForeignKey(nameof(User))]
         public long Fk_User { get; set; }
+        public int TotalSumRating { get; set; }
+        public int NumRated { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime EditedAt { get; set; }
+        public bool Removed { get; set; }
 
         [JsonIgnore]
         [InverseProperty(nameof(Appointment.Doctor))]
