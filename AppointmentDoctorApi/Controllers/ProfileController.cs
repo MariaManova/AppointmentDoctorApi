@@ -29,7 +29,7 @@ namespace AppointmentDoctorApi.Controllers
 
         // GET: api/Profile/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(long id)
         {
              var  pat = db.Patient.Include(p => p.MyAppointments).FirstOrDefault(p => p.Id == id);
             var  us = db.User.Include(u => u.Photo).FirstOrDefault(u => u.Id == pat.Fk_User);
