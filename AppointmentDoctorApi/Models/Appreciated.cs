@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace AppointmentDoctorApi.Models
 {
+    /// <summary>
+    /// Оценившие доктора
+    /// </summary>
     public class Appreciated
     {
         [Key]
@@ -19,6 +22,7 @@ namespace AppointmentDoctorApi.Models
         [Display(Name = "Доктор"), ForeignKey(nameof(Doctor))]
         public long Fk_Doctor { get; set; }
         public int Assessment { get; set; }
+        public DateTime dateTime { get; set; }
 
 
         [JsonIgnore]
