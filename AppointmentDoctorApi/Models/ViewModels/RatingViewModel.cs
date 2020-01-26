@@ -13,5 +13,16 @@ namespace AppointmentDoctorApi.Models.ViewModels
         public double Rating { get; set; }
         public int Assessment { get; set; }
         public long Id_User { get; set; }
+        public long Id_Appreciated { get; set; }
+        
+        public static explicit operator Appreciated(RatingViewModel m)
+        {
+            return new Appreciated()
+            {
+                Fk_User = m.Id_User,
+                Assessment = m.Assessment,
+                dateTime = DateTime.Now
+            };
+        }
     }
 }
