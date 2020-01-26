@@ -30,7 +30,6 @@ namespace AppointmentDoctorApi.Controllers
         }
 
         // GET: api/Doctor/5
-        [AllowAnonymous]
         [HttpGet(Name = "Get")]
         public IActionResult Get(long id_Doctor, long id_User)
         {
@@ -51,15 +50,40 @@ namespace AppointmentDoctorApi.Controllers
             });
         }
 
-        // POST: api/Doctor
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // GET: api/Doctor/5
+        [AllowAnonymous]
+        [HttpGet( "get/appointments")]
+        public IActionResult GetAppointments(long id_Doctor, DateTime date)
         {
+            if (id_Doctor == 0)
+            {
+                return BadRequest();
+            }
+            var app = db.Appointment.Where(a => a.Fk_Doctor == id_Doctor && 
+            a.DateTimeReceipt.Date == date.Date).ToList();
+             return Ok(new
+            {
+                 appointments = app,
+            });
+        }
+
+        // POST: api/Doctor
+        [HttpPost("save/appointment")]
+        public IActionResult SaveAppointment([FromBody] AppointmentViewModel model)
+        {
+            if (model == null)
+            {
+                return BadRequest();
+            }
+            var app = (Appointment)model;
+            db.Add(app);
+            db.SaveChanges();
+            return Ok(app);
         }
 
         // PUT: api/Doctor/5
-        [HttpPut]
-        public IActionResult Put(long id_Doctor, [FromBody] RatingViewModel model)
+        [HttpPut("putARating")]
+        public IActionResult PutARating(long id_Doctor, [FromBody] RatingViewModel model)
         {
             if (model == null)
             {
@@ -75,12 +99,40 @@ namespace AppointmentDoctorApi.Controllers
             doc.Rating = model.Rating;
             db.Update(doc);
             db.SaveChanges();
-            Appreciated ap = new Appreciated();
+            Appreciated ap = (Appreciated) model;
+            ap.Fk_Doctor = id_Doctor;
+            db.Add(ap);
+            db.SaveChanges();
+            return Ok(new
+            {
+                doctor = doc,
+                appreciated = ap
+            });
+        }
+        // PUT: api/Doctor/5
+        [HttpPut("changeRating")]
+        public IActionResult ChangeRating(long id_Doctor, [FromBody] RatingViewModel model)
+        {
+            if (model == null)
+            {
+                return BadRequest();
+            }
+            var doc = db.Doctor.FirstOrDefault(d => d.Id == id_Doctor);
+            if (doc == null)
+            {
+                return BadRequest();
+            }
+            doc.TotalSumRating = model.TotalSumRating;
+            doc.NumRated = model.NumRated;
+            doc.Rating = model.Rating;
+            db.Update(doc);
+            db.SaveChanges();
+            Appreciated ap = db.Appreciated.FirstOrDefault(a => a.Id == model.Id_Appreciated);
             ap.Fk_Doctor = id_Doctor;
             ap.Fk_User = model.Id_User;
             ap.Assessment = model.Assessment;
             ap.dateTime = DateTime.Now;
-            db.Add(ap);
+            db.Update(ap);
             db.SaveChanges();
             return Ok(new
             {
