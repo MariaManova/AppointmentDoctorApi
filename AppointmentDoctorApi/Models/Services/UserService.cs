@@ -47,13 +47,14 @@ namespace AppointmentDoctorApi.Models.Services
 
             context.Add(user);
             context.SaveChanges();
-
-            Patient patient = new Patient();
-            patient.Fk_User = user.Id;
-            patient.Address = address;
-            context.Add(patient);
-            context.SaveChanges();
-
+            if (address != "")
+            {
+                Patient patient = new Patient();
+                patient.Fk_User = user.Id;
+                patient.Address = address;
+                context.Add(patient);
+                context.SaveChanges();
+            }
             return user;
         }
         public Patient Get(long Id)
