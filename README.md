@@ -1,7 +1,7 @@
 ## AppointmentDoctorApi .NET CORE 2.1 + JWT + REST   
 Мобильное приложение для записи к врачу
 
-### Клиент TypeScript React Native TypeScript
+### Клиент TypeScript React Native
 Находится здесь -> [AppointmentWithADoctor](https://github.com/MariaManova/AppointmentWithADoctor.git)
 
 -----------------------
