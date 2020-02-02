@@ -25,7 +25,6 @@ namespace AppointmentDoctorApi.Models
         public DateTime EditedAt { get; set; }
         public bool Removed { get; set; }
 
-        [JsonIgnore]
         public virtual Doctor Doctor { get; set; }
         [JsonIgnore]
         public virtual Patient Patient { get; set; }
