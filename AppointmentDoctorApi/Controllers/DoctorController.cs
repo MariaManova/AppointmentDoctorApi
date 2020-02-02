@@ -26,7 +26,7 @@ namespace AppointmentDoctorApi.Controllers
         [HttpGet("all")]
         public ActionResult<IEnumerable<Doctor>> Get()
         {
-            return db.Doctor.Include(d => d.User).ThenInclude(u => u.Photo).Include(d => d.Speciality).Include(d => d.PlaceOfWork).OrderBy(p => p.Speciality.NameSpeciality).ToList();
+            return db.Doctor.Include(d => d.User.Photo).Include(d => d.Speciality).Include(d => d.PlaceOfWork).OrderBy(p => p.CreatedAt).ToList();
         }
 
         // GET: api/Doctor/5
@@ -142,9 +142,9 @@ namespace AppointmentDoctorApi.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
