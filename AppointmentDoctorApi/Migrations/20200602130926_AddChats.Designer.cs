@@ -4,14 +4,16 @@ using AppointmentDoctorApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AppointmentDoctorApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200602130926_AddChats")]
+    partial class AddChats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,35 +198,6 @@ namespace AppointmentDoctorApi.Migrations
                     b.ToTable("Patient");
                 });
 
-            modelBuilder.Entity("AppointmentDoctorApi.Models.PatientCard", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<string>("Diagnosis");
-
-                    b.Property<DateTime>("EditedAt");
-
-                    b.Property<long>("Fk_Doctor");
-
-                    b.Property<long>("Fk_Patient");
-
-                    b.Property<string>("Recommendations");
-
-                    b.Property<bool>("Removed");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Fk_Doctor");
-
-                    b.HasIndex("Fk_Patient");
-
-                    b.ToTable("PatientCard");
-                });
-
             modelBuilder.Entity("AppointmentDoctorApi.Models.PlaceOfWork", b =>
                 {
                     b.Property<long>("Id")
@@ -372,7 +345,7 @@ namespace AppointmentDoctorApi.Migrations
             modelBuilder.Entity("AppointmentDoctorApi.Models.DoctorChat", b =>
                 {
                     b.HasOne("AppointmentDoctorApi.Models.Doctor", "Doctor")
-                        .WithMany("DDoctorsChats")
+                        .WithMany("DoctorsChats")
                         .HasForeignKey("Fk_Doctor")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -387,19 +360,6 @@ namespace AppointmentDoctorApi.Migrations
                     b.HasOne("AppointmentDoctorApi.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("Fk_User")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("AppointmentDoctorApi.Models.PatientCard", b =>
-                {
-                    b.HasOne("AppointmentDoctorApi.Models.User", "User")
-                        .WithMany("PatientCards")
-                        .HasForeignKey("Fk_Doctor")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("AppointmentDoctorApi.Models.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("Fk_Patient")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

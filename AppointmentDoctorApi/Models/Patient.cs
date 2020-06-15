@@ -15,9 +15,13 @@ namespace AppointmentDoctorApi.Models
         public String Address { get; set; }
         [Display(Name = "Данные пользователя"), ForeignKey(nameof(User))]
         public long Fk_User { get; set; }
-
-        [InverseProperty(nameof(Appointment.Patient))]
+		[InverseProperty(nameof(DoctorChat.Patient))]
+		public virtual ICollection<DoctorChat> MyDoctorsChats { get; set; } = new HashSet<DoctorChat>();
+		[InverseProperty(nameof(PatientCard.Patient))]
+		public virtual ICollection<PatientCard> PatientCardss { get; set; } = new HashSet<PatientCard>();
+		[InverseProperty(nameof(Appointment.Patient))]
         public virtual ICollection<Appointment> MyAppointments { get; set; } = new HashSet<Appointment>();
-        public virtual User User { get; set; }
+		
+		public virtual User User { get; set; }
     }
 }

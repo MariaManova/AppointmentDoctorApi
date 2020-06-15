@@ -27,12 +27,16 @@ namespace AppointmentDoctorApi.Models
         public DateTime EditedAt { get; set; }
         public bool Removed { get; set; }
 
+
         [JsonIgnore]
         [InverseProperty(nameof(Appointment.Doctor))]
         public virtual ICollection<Appointment> Appointments { get; set; } = new HashSet<Appointment>();
         [InverseProperty(nameof(WorkSchedule.Doctor))]
         public virtual ICollection<WorkSchedule> WorkSchedules { get; set; } = new HashSet<WorkSchedule>();
-        public virtual Speciality Speciality { get; set; }
+		[JsonIgnore]
+		[InverseProperty(nameof(DoctorChat.Doctor))]
+		public virtual ICollection<DoctorChat> DDoctorsChats { get; set; } = new HashSet<DoctorChat>();
+		public virtual Speciality Speciality { get; set; }
         public virtual PlaceOfWork PlaceOfWork { get; set; }        
         public virtual User User { get; set; }
     }

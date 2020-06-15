@@ -63,13 +63,13 @@ namespace AppointmentDoctorApi.Controllers
                 return BadRequest(new { message = "Email или пароль не валидны" });
 
             var user = userService.Authenticate(model.Email, model.Password);
-
+			
             if (user == null)
                 return BadRequest(new { message = "Email или пароль не валидны" });
 
             var tokenString = GetToken(user);
             var patientAuth = userService.Get(user.Id);
-
+			
             return Ok(new
             {
                 token = tokenString,

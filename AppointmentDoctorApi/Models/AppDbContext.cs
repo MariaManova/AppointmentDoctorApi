@@ -30,6 +30,9 @@ namespace AppointmentDoctorApi.Models
         public DbSet<WorkSchedule> WorkSchedule { get; set; }
         public DbSet<Appreciated> Appreciated { get; set; }
         public DbSet<Appointment> Appointment { get; set; }
-        public DbSet<Images> Images { get; set; }
-    }
+		public DbSet<DoctorChat> DoctorChat { get; set; }
+		public DbSet<ChatMessage> ChatMessage { get; set; }
+		public DbSet<Images> Images { get; set; }
+		public DbSet<PatientCard> PatientCard { get; set; }
+	}
 }

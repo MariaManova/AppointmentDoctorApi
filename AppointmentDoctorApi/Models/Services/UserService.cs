@@ -43,7 +43,7 @@ namespace AppointmentDoctorApi.Models.Services
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            user.Fk_Photo = 2;
+            user.Fk_Photo = 1;
 
             context.Add(user);
             context.SaveChanges();

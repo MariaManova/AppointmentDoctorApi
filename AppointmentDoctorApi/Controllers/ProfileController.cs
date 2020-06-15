@@ -31,26 +31,28 @@ namespace AppointmentDoctorApi.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            if (id == 0)
-            {
-                return BadRequest();
-            }
-            var  pat = db.Patient.Include(p => p.User).ThenInclude(u => u.Photo).Include(p => p.MyAppointments).ThenInclude(a => a.Doctor).ThenInclude(a => a.Speciality)
-                .Include(p => p.MyAppointments).ThenInclude(a => a.Doctor).ThenInclude(a => a.PlaceOfWork)
-                .Include(p => p.MyAppointments).ThenInclude(a => a.Doctor.User).ThenInclude(a => a.Photo).FirstOrDefault(p => p.Id == id);
-            if (pat == null)
-            {
-                return BadRequest();
-            }
-            var listApprs = pat.MyAppointments.Where(p => p.DateTimeReceipt > DateTime.Now).OrderBy(p => p.DateTimeReceipt).ToList();
-            var historyApprs = pat.MyAppointments.Where(p => p.DateTimeReceipt < DateTime.Now).OrderByDescending(p => p.DateTimeReceipt).ToList();
-            return Ok(new
-            {
-                patient = pat,
-                appointments = listApprs,
-                history = historyApprs,
-            });
-        }
+
+
+			if (id == 0)
+			{
+				return BadRequest();
+			}
+			var pat = db.Patient.Include(p => p.User).ThenInclude(u => u.Photo).Include(p => p.MyAppointments).ThenInclude(a => a.Doctor).ThenInclude(a => a.Speciality)
+				.Include(p => p.MyAppointments).ThenInclude(a => a.Doctor).ThenInclude(a => a.PlaceOfWork)
+				.Include(p => p.MyAppointments).ThenInclude(a => a.Doctor.User).ThenInclude(a => a.Photo).FirstOrDefault(p => p.Id == id);
+			if (pat == null)
+			{
+				return BadRequest();
+			}
+			var listApprs = pat.MyAppointments.Where(p => p.DateTimeReceipt > DateTime.Now).OrderBy(p => p.DateTimeReceipt).ToList();
+			var historyApprs = pat.MyAppointments.Where(p => p.DateTimeReceipt < DateTime.Now).OrderByDescending(p => p.DateTimeReceipt).ToList();
+			return Ok(new
+			{
+				patient = pat,
+				appointments = listApprs,
+				history = historyApprs,
+			});
+		}
 
         // POST: api/Profile
         //[HttpPost]

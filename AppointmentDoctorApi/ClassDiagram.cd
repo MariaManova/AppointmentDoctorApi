@@ -10,7 +10,7 @@
   <Class Name="AppointmentDoctorApi.Models.Doctor">
     <Position X="3.5" Y="0.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAjAAAAAAgAQEAABCAgECAAQAIAAAEgAAAAAAACAAA=</HashCode>
+      <HashCode>AAAjAAAAAAgAQEAABCAgECAAQAIAAAEgAEAAAAACAAA=</HashCode>
       <FileName>Models\Doctor.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -24,7 +24,7 @@
   <Class Name="AppointmentDoctorApi.Models.Patient">
     <Position X="9.25" Y="4.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>ABADAAAAAAAAAAAAAAAgAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>ABADAAAAAAIAAAAAAAAgAAAACAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Models\Patient.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,7 +45,7 @@
   <Class Name="AppointmentDoctorApi.Models.User">
     <Position X="9.25" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>EACCAAAAACQAAOAAACAAACAIAAAAEAAAAAAAIAAAAAA=</HashCode>
+      <HashCode>EACCAAAAACQAAOAAACAAASAIAAAAEAAAAAAAIAAAAAA=</HashCode>
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -57,7 +57,7 @@
     </TypeIdentifier>
   </Class>
   <Enum Name="AppointmentDoctorApi.Models.Enumerations.Category">
-    <Position X="1" Y="4.75" Width="1.5" />
+    <Position X="1" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgEAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Models\Enumerations\Category.cs</FileName>
@@ -73,7 +73,7 @@
   <Enum Name="AppointmentDoctorApi.Models.Enumerations.Role">
     <Position X="1" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAEAAAAAAAAAAAAAAQA=</HashCode>
       <FileName>Models\Enumerations\Role.cs</FileName>
     </TypeIdentifier>
   </Enum>

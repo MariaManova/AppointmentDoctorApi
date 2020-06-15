@@ -23,7 +23,7 @@ namespace AppointmentDoctorApi.Models.ViewModels
                 FullName = m.FullName,
                 Email = m.Email,
                 Enum_Gender = 0,
-                Enum_Role = 2,
+                Enum_Role = 3,
                 CreatedAt = DateTime.Now,
                 EditedAt = DateTime.Now,
                 Removed = false,

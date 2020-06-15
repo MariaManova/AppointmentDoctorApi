@@ -35,5 +35,9 @@ namespace AppointmentDoctorApi.Models
         public bool Removed { get; set; }                    
 
         public virtual Images Photo { get; set; }
-    }
+		[JsonIgnore]
+		[InverseProperty(nameof(PatientCard.User))]
+		public virtual ICollection<PatientCard> PatientCards { get; set; } = new HashSet<PatientCard>();
+
+	}
 }

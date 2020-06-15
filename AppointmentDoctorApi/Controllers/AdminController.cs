@@ -53,11 +53,11 @@ namespace AppointmentDoctorApi.Controllers
             {
                 return BadRequest();
             }
-            model.Role = (int)Role.user;
-            User user;
+            model.Role = (int)Role.doc;
+            User doc;
             try
             {
-                user = userService.Create((User)model, "", model.Password);
+                doc = userService.Create((User)model, "г. Владимир", model.Password);
             }
             catch (AppException e)
             {
@@ -74,7 +74,7 @@ namespace AppointmentDoctorApi.Controllers
                 });
             }
             var doctor = (Doctor)model;
-            doctor.Fk_User = user.Id;
+            doctor.Fk_User = doc.Id;
 
             db.Add(doctor);
             db.SaveChanges();

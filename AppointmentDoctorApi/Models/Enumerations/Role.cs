@@ -9,5 +9,6 @@ namespace AppointmentDoctorApi.Models.Enumerations
     {
         admin = 1,
         user = 2,
+		doc = 3,
     }
 }

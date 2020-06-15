@@ -30,7 +30,7 @@ namespace AppointmentDoctorApi.Controllers
         }
 
         // GET: api/Doctor/5
-        [HttpGet(Name = "Get")]
+        [HttpGet]
         public IActionResult Get(long id_Doctor, long id_User)
         {
             if (id_User == 0 || id_Doctor == 0)
@@ -38,16 +38,23 @@ namespace AppointmentDoctorApi.Controllers
                 return BadRequest();
             }
             var app = db.Appreciated.FirstOrDefault(a => a.Fk_Doctor == id_Doctor && a.Fk_User == id_User);
-            var doc = db.Doctor.FirstOrDefault(d => d.Id == id_Doctor);
+            var doc = db.Doctor.Include(p => p.User).ThenInclude(u => u.Photo).Include(p => p.Appointments).ThenInclude(a => a.Doctor).ThenInclude(a => a.Speciality)
+				.Include(p => p.Appointments).ThenInclude(a => a.Patient)
+				.Include(p => p.Appointments).ThenInclude(a => a.Patient.User).ThenInclude(a => a.Photo).FirstOrDefault(d => d.Id == id_Doctor);
             if (doc == null)
             {
                 return BadRequest();
             }
-            return Ok(new
-            {
-                appreciated = app,
-                doctor = doc
-            });
+			var listApprs = doc.Appointments.Where(p => p.DateTimeReceipt > DateTime.Now).OrderBy(p => p.DateTimeReceipt).ToList();
+			var historyApprs = doc.Appointments.Where(p => p.DateTimeReceipt < DateTime.Now).OrderByDescending(p => p.DateTimeReceipt).ToList();
+			return Ok(new
+			{
+				doctor = doc,
+				doctorapps = listApprs,
+				history = historyApprs,
+				appreciated = app,
+			});
+			
         }
 
         // GET: api/Doctor/5
@@ -81,8 +88,10 @@ namespace AppointmentDoctorApi.Controllers
             return Ok(app);
         }
 
-        // PUT: api/Doctor/5
-        [HttpPut("putARating")]
+		
+
+		// PUT: api/Doctor/5
+		[HttpPut("putARating")]
         public IActionResult PutARating(long id_Doctor, [FromBody] RatingViewModel model)
         {
             if (model == null)
@@ -140,11 +149,38 @@ namespace AppointmentDoctorApi.Controllers
                 appreciated = ap
             });
         }
+		// GET: api/Profile
+		//[HttpGet]
+		//public IEnumerable<string> Get()
+		//{
+		//    return new string[] { "value1", "value2" };
+		//}
 
-        // DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
-    }
+		// GET: api/doctor/5
+		
+
+		// POST: api/Profile
+		//[HttpPost]
+		//public void Post([FromBody] string value)
+		//{
+		//}
+
+		// PUT: api/Profile/5
+		//[HttpPut("{id}")]
+		//public void Put(int id, [FromBody] string value)
+		//{
+		//}
+
+		// DELETE: api/ApiWithActions/5
+		//[HttpDelete("{id}")]
+		//public void Delete(int id)
+		//{
+		//}
+
+		// DELETE: api/ApiWithActions/5
+		//[HttpDelete("{id}")]
+		//public void Delete(int id)
+		//{
+		//}
+	}
 }
